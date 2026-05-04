@@ -26,7 +26,7 @@ import Dropdwon from "./Dropdown/Dropdwon"
 // import ThemeToggle from "./Darkmode/ThemeToggle"
 // // import { DataStore } from './Zustand/DataStore';
 // import CrudData from "./CrudwithRedux/CrudData";
-import Api from "./API/Api"
+// import Api from "./API/Api"
 
 function App() {
   // const count = useSelector((state) => state.counter.value);
@@ -77,7 +77,7 @@ function App() {
 {/* <DataCount/> */}
 {/* <ThemeToggle/> */}
 {/* <CrudData/> */}
-<Api/>
+{/* <Api/> */}
 <Dropdwon/>
 
     </div>
