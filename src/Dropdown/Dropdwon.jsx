@@ -17,14 +17,14 @@ const Dropdwon = () => {
     };
 
     return (
-        <div className="bg-gray-100 min-h-screen flex justify-center items-center">
-            <div className="flex gap-10">
+        <div className="min-h-screen flex justify-center items-center bg-gray-100">
+            <div className="flex gap-6">
 
-                {/* SHOP */}
-                <div className="relative w-52 flex items-start">
+
+                <div className="relative">
                     <button
                         onClick={() => toggleMenu("shop")}
-                        className="w-full p-5 bg-white shadow-lg rounded-xl font-medium flex justify-between items-center z-20 relative"
+                        className="flex items-center justify-between gap-2 px-5 py-3 bg-white border rounded-xl shadow-sm hover:shadow-md hover:bg-gray-50 transition"
                     >
                         <span className="flex items-center gap-2">
                             <FaShoppingCart /> Shop
@@ -33,46 +33,47 @@ const Dropdwon = () => {
                     </button>
 
                     {openMenu === "shop" && (
-                        <div className="absolute top-0 left-full ml-2 bg-white shadow-xl rounded-xl w-52 z-50">
+                        <div className="absolute top-full left-0 mt-2 w-52 bg-white border rounded-xl shadow-md p-2">
 
-                            <div className="p-3 hover:bg-gray-100 flex justify-between items-center relative">
-                                <span>Electronics</span>
-                                <button onClick={() => toggleSubMenu("electronics")}>
-                                    <IoChevronForward />
-                                </button>
+                            <div
+                                onClick={() => toggleSubMenu("electronics")}
+                                className="px-3 py-2 flex justify-between items-center hover:bg-gray-100 rounded-md cursor-pointer"
+                            >
+                                Electronics <IoChevronForward />
 
                                 {subMenu === "electronics" && (
-                                    <div className="absolute left-full top-0 bg-white shadow-xl rounded-xl w-44 ml-2 z-50">
-                                        <div className="p-2 hover:bg-gray-100">Laptops</div>
-                                        <div className="p-2 hover:bg-gray-100">Mobiles</div>
+                                    <div className="absolute left-full ml-2 top-0 w-40 bg-white border rounded-lg shadow p-2">
+                                        <div className="px-2 py-1 hover:bg-gray-100 rounded">Laptops</div>
+                                        <div className="px-2 py-1 hover:bg-gray-100 rounded">Mobiles</div>
                                     </div>
                                 )}
                             </div>
 
-                            <div className="p-3 hover:bg-gray-100 flex justify-between items-center relative">
-                                <span>Fashion</span>
-                                <button onClick={() => toggleSubMenu("fashion")}>
-                                    <IoChevronForward />
-                                </button>
+                            <div
+                                onClick={() => toggleSubMenu("fashion")}
+                                className="px-3 py-2 flex justify-between items-center hover:bg-gray-100 rounded-md cursor-pointer"
+                            >
+                                Fashion <IoChevronForward />
 
                                 {subMenu === "fashion" && (
-                                    <div className="absolute left-full top-0 bg-white shadow-xl rounded-xl w-44 ml-2 z-50">
-                                        <div className="p-2 hover:bg-gray-100">Men</div>
-                                        <div className="p-2 hover:bg-gray-100">Women</div>
+                                    <div className="absolute left-full ml-2 top-0 w-40 bg-white border rounded-lg shadow p-2">
+                                        <div className="px-2 py-1 hover:bg-gray-100 rounded">Men</div>
+                                        <div className="px-2 py-1 hover:bg-gray-100 rounded">Women</div>
                                     </div>
                                 )}
                             </div>
 
-                            <div className="p-3 hover:bg-gray-100">Accessories</div>
+                            <div className="px-3 py-2 hover:bg-gray-100 rounded-md cursor-pointer">
+                                Accessories
+                            </div>
                         </div>
                     )}
                 </div>
 
-                {/* SERVICES */}
-                <div className="relative w-52 flex items-start">
+                <div className="relative">
                     <button
                         onClick={() => toggleMenu("services")}
-                        className="w-full p-5 bg-white shadow-lg rounded-xl font-medium flex justify-between items-center z-20 relative"
+                        className="flex items-center justify-between gap-2 px-5 py-3 bg-white border rounded-xl shadow-sm hover:shadow-md hover:bg-gray-50 transition"
                     >
                         <span className="flex items-center gap-2">
                             <FaTools /> Services
@@ -81,32 +82,32 @@ const Dropdwon = () => {
                     </button>
 
                     {openMenu === "services" && (
-                        <div className="absolute top-0 left-full ml-2 bg-white shadow-xl rounded-xl w-52 z-50">
-
-                            <div className="p-3 hover:bg-gray-100 flex justify-between items-center relative">
-                                <span>Repair</span>
-                                <button onClick={() => toggleSubMenu("repair")}>
-                                    <IoChevronForward />
-                                </button>
+                        <div className="absolute top-full left-0 mt-2 w-52 bg-white border rounded-xl shadow-md p-2">
+                            <div
+                                onClick={() => toggleSubMenu("repair")}
+                                className="px-3 py-2 flex justify-between items-center hover:bg-gray-100 rounded-md cursor-pointer"
+                            >
+                                Repair <IoChevronForward />
 
                                 {subMenu === "repair" && (
-                                    <div className="absolute left-full top-0 bg-white shadow-xl rounded-xl w-44 ml-2 z-50">
-                                        <div className="p-2 hover:bg-gray-100">Laptop</div>
-                                        <div className="p-2 hover:bg-gray-100">Mobile</div>
+                                    <div className="absolute left-full ml-2 top-0 w-40 bg-white border rounded-lg shadow p-2">
+                                        <div className="px-2 py-1 hover:bg-gray-100 rounded">Laptop</div>
+                                        <div className="px-2 py-1 hover:bg-gray-100 rounded">Mobile</div>
                                     </div>
                                 )}
                             </div>
 
-                            <div className="p-3 hover:bg-gray-100">Consulting</div>
+                            <div className="px-3 py-2 hover:bg-gray-100 rounded-md cursor-pointer">
+                                Consulting
+                            </div>
                         </div>
                     )}
                 </div>
 
-                {/* COURSES */}
-                <div className="relative w-52 flex items-start">
+                <div className="relative">
                     <button
                         onClick={() => toggleMenu("courses")}
-                        className="w-full p-5 bg-white shadow-lg rounded-xl font-medium flex justify-between items-center z-20 relative"
+                        className="flex items-center justify-between gap-2 px-5 py-3 bg-white border rounded-xl shadow-sm hover:shadow-md hover:bg-gray-50 transition"
                     >
                         <span className="flex items-center gap-2">
                             <MdSchool /> Courses
@@ -115,32 +116,32 @@ const Dropdwon = () => {
                     </button>
 
                     {openMenu === "courses" && (
-                        <div className="absolute top-0 left-full ml-2 bg-white shadow-xl rounded-xl w-52 z-50">
-
-                            <div className="p-3 hover:bg-gray-100 flex justify-between items-center relative">
-                                <span>Development</span>
-                                <button onClick={() => toggleSubMenu("dev")}>
-                                    <IoChevronForward />
-                                </button>
+                        <div className="absolute top-full left-0 mt-2 w-52 bg-white border rounded-xl shadow-md p-2">
+                            <div
+                                onClick={() => toggleSubMenu("dev")}
+                                className="px-3 py-2 flex justify-between items-center hover:bg-gray-100 rounded-md cursor-pointer"
+                            >
+                                Development <IoChevronForward />
 
                                 {subMenu === "dev" && (
-                                    <div className="absolute left-full top-0 bg-white shadow-xl rounded-xl w-44 ml-2 z-50">
-                                        <div className="p-2 hover:bg-gray-100">React</div>
-                                        <div className="p-2 hover:bg-gray-100">Node</div>
+                                    <div className="absolute left-full ml-2 top-0 w-40 bg-white border rounded-lg shadow p-2">
+                                        <div className="px-2 py-1 hover:bg-gray-100 rounded">React</div>
+                                        <div className="px-2 py-1 hover:bg-gray-100 rounded">Node</div>
                                     </div>
                                 )}
                             </div>
 
-                            <div className="p-3 hover:bg-gray-100">Design</div>
+                            <div className="px-3 py-2 hover:bg-gray-100 rounded-md cursor-pointer">
+                                Design
+                            </div>
                         </div>
                     )}
                 </div>
 
-                {/* PROFILE */}
-                <div className="relative w-52 flex items-start">
+                <div className="relative">
                     <button
                         onClick={() => toggleMenu("profile")}
-                        className="w-full p-5 bg-white shadow-lg rounded-xl font-medium flex justify-between items-center z-20 relative"
+                        className="flex items-center justify-between gap-2 px-5 py-3 bg-white border rounded-xl shadow-sm hover:shadow-md hover:bg-gray-50 transition"
                     >
                         <span className="flex items-center gap-2">
                             <FaUser /> Profile
@@ -149,10 +150,10 @@ const Dropdwon = () => {
                     </button>
 
                     {openMenu === "profile" && (
-                        <div className="absolute top-0 left-full ml-2 bg-white shadow-xl rounded-xl w-52 z-50">
-                            <div className="p-3 hover:bg-gray-100">My Account</div>
-                            <div className="p-3 hover:bg-gray-100">Orders</div>
-                            <div className="p-3 hover:bg-gray-100 text-red-500">Logout</div>
+                        <div className="absolute top-full left-0 mt-2 w-52 bg-white border rounded-xl shadow-md p-2">
+                            <div className="px-3 py-2 hover:bg-gray-100 rounded-md cursor-pointer">My Account</div>
+                            <div className="px-3 py-2 hover:bg-gray-100 rounded-md cursor-pointer">Orders</div>
+                            <div className="px-3 py-2 text-red-500 hover:bg-red-50 rounded-md cursor-pointer">Logout</div>
                         </div>
                     )}
                 </div>
