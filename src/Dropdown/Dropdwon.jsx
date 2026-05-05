@@ -46,7 +46,7 @@ const Dropdwon = () => {
                                 <IoChevronForward />
 
                                 {subMenu === "electronics" && (
-                                    <div className="absolute left-[96%] ml-2 top-0 w-44 bg-white border border-gray-200 rounded-lg shadow-xl p-2 z-10">
+                                    <div className="absolute left-full ml-2 top-1/2 -translate-y-1/2 w-44 bg-white border border-gray-200 rounded-lg shadow-xl p-2 z-10">
                                         <div className="px-2 py-1 hover:bg-indigo-50 rounded">Laptops</div>
                                         <div className="px-2 py-1 hover:bg-indigo-50 rounded">Mobiles</div>
                                     </div>
@@ -59,7 +59,7 @@ const Dropdwon = () => {
                                 <IoChevronForward />
 
                                 {subMenu === "fashion" && (
-                                    <div className="absolute left-[96%] ml-2 top-0 w-44 bg-white border border-gray-200 rounded-lg shadow-xl p-2 z-10">
+                                    <div className="absolute left-full ml-2 top-1/2 -translate-y-1/2 w-44 bg-white border border-gray-200 rounded-lg shadow-xl p-2 z-10">
                                         <div className="px-2 py-1 hover:bg-indigo-50 rounded">Men</div>
                                         <div className="px-2 py-1 hover:bg-indigo-50 rounded">Women</div>
                                     </div>
@@ -99,7 +99,7 @@ const Dropdwon = () => {
                                 <IoChevronForward />
 
                                 {subMenu === "repair" && (
-                                    <div className="absolute left-[96%] ml-2 top-0 w-44 bg-white border border-gray-200 rounded-lg shadow-xl p-2 z-10">
+                                    <div className="absolute left-full ml-2 top-1/2 -translate-y-1/2 w-44 bg-white border border-gray-200 rounded-lg shadow-xl p-2 z-10">
                                         <div className="px-2 py-1 hover:bg-indigo-50 rounded">Laptop</div>
                                         <div className="px-2 py-1 hover:bg-indigo-50 rounded">Mobile</div>
                                     </div>
@@ -139,7 +139,7 @@ const Dropdwon = () => {
                                 <IoChevronForward />
 
                                 {subMenu === "dev" && (
-                                    <div className="absolute left-[96%] ml-2 top-0 w-44 bg-white border border-gray-200 rounded-lg shadow-xl p-2 z-10">
+                                    <div className="absolute left-full ml-2 top-1/2 -translate-y-1/2 w-44 bg-white border border-gray-200 rounded-lg shadow-xl p-2 z-10">
                                         <div className="px-2 py-1 hover:bg-indigo-50 rounded">React</div>
                                         <div className="px-2 py-1 hover:bg-indigo-50 rounded">Node</div>
                                     </div>
