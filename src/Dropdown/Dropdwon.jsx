@@ -20,7 +20,6 @@ const Dropdwon = () => {
         <div className="min-h-screen flex justify-center items-center bg-gradient-to-br from-slate-100 via-gray-200 to-slate-300">
             <div className="flex gap-6">
 
-                {/* SHOP */}
                 <div className="relative w-52">
                     <button
                         onClick={() => toggleMenu("shop")}
@@ -73,7 +72,6 @@ const Dropdwon = () => {
                     )}
                 </div>
 
-                {/* SERVICES */}
                 <div className="relative w-52">
                     <button
                         onClick={() => toggleMenu("services")}
@@ -113,7 +111,6 @@ const Dropdwon = () => {
                     )}
                 </div>
 
-                {/* COURSES */}
                 <div className="relative w-52">
                     <button
                         onClick={() => toggleMenu("courses")}
@@ -153,7 +150,6 @@ const Dropdwon = () => {
                     )}
                 </div>
 
-                {/* PROFILE */}
                 <div className="relative w-52">
                     <button
                         onClick={() => toggleMenu("profile")}
