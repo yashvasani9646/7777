@@ -2,6 +2,8 @@
 // import { useDispatch, useSelector, } from 'react-redux'
 
 import Dropdwon from "./Dropdown/Dropdwon"
+import Validation from "./YupLibrary/Validation"
+import Yup from "./YupLibrary/Yup"
 
 // import Pratice from "./Demo-practice/Pratice"
 // import Calculater from "./Demo-practice/Calculater"
@@ -73,13 +75,15 @@ function App() {
       {/* <Form /> */}
       {/* <Input /> */}
       {/* <Aggridtable/> */}
-{/* <MapTask/> */}
-{/* <DataCount/> */}
-{/* <ThemeToggle/> */}
-{/* <CrudData/> */}
-{/* <Api/> */}
-<Dropdwon/>
+      {/* <MapTask/> */}
+      {/* <DataCount/> */}
+      {/* <ThemeToggle/> */}
+      {/* <CrudData/> */}
+      {/* <Api/> */}
+      {/* <Dropdwon/> */}
 
+      <Yup />
+      <Validation/>
     </div>
 
   )
