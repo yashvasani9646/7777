@@ -34,12 +34,11 @@ const validationSchema =
 
         email:
             YupValidation.string()
-                .email(
-                    "Invalid Email Address"
+                .matches(
+                    /^[a-zA-Z0-9._%+-]+@gmail\.com$/,
+                    "Enter valid gmail address"
                 )
-                .required(
-                    "Email is required"
-                ),
+                .required("Email is required"),
 
         phone:
             YupValidation.string()
@@ -261,6 +260,7 @@ const Yup = () => {
                                     type="text"
                                     name="phone"
                                     placeholder="Phone Number"
+                                    maxLength={10}
                                     className="w-full border p-3 rounded-lg"
                                 />
 

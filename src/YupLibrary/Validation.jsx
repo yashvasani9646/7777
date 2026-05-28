@@ -68,7 +68,7 @@ const Validation = () => {
         let newErrors = {};
 
         const emailPattern =
-            /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
 
         const phonePattern = /^[0-9]{10}$/;
 
@@ -328,6 +328,7 @@ const Validation = () => {
                         placeholder="Phone Number"
                         value={formData.phone}
                         onChange={handleChange}
+                        maxLength={10}
                         className="w-full border p-3 rounded-lg"
                     />
 
