@@ -6,6 +6,7 @@ import {
 } from "formik";
 
 import * as YupValidation from "yup";
+import Commanyup from "./Commanyup";
 
 const validationSchema =
     YupValidation.object({
@@ -139,9 +140,9 @@ const Yup = () => {
 
         <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4 py-10">
 
-            <div className="w-full max-w-xl bg-white p-6 rounded-2xl shadow-lg">
+            <div className="w-full max-w-3xl bg-white p-8 rounded-3xl shadow-2xl border border-gray-200">
 
-                <h1 className="text-3xl font-bold text-center mb-6">
+                <h1 className="text-4xl font-bold text-center mb-2 text-gray-800">
                     Yup Validation Form
                 </h1>
 
@@ -183,168 +184,112 @@ const Yup = () => {
                         setFieldValue,
                     }) => (
 
-                        <Form className="space-y-4">
+                        <Form className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
                             {/* First Name */}
                             <div>
 
-                                <Field
+                                <Commanyup
                                     type="text"
                                     name="firstName"
                                     placeholder="First Name"
-                                    className="w-full border p-3 rounded-lg"
-                                />
-
-                                <ErrorMessage
-                                    name="firstName"
-                                    component="p"
-                                    className="text-red-500 text-sm mt-1"
                                 />
                             </div>
 
                             {/* Last Name */}
                             <div>
 
-                                <Field
+                                <Commanyup
                                     type="text"
                                     name="lastName"
                                     placeholder="Last Name"
-                                    className="w-full border p-3 rounded-lg"
-                                />
-
-                                <ErrorMessage
-                                    name="lastName"
-                                    component="p"
-                                    className="text-red-500 text-sm mt-1"
                                 />
                             </div>
 
                             {/* Username */}
                             <div>
-
-                                <Field
+                                <Commanyup
                                     type="text"
                                     name="username"
                                     placeholder="Username"
-                                    className="w-full border p-3 rounded-lg"
-                                />
-
-                                <ErrorMessage
-                                    name="username"
-                                    component="p"
-                                    className="text-red-500 text-sm mt-1"
                                 />
                             </div>
 
                             {/* Email */}
                             <div>
 
-                                <Field
+                                <Commanyup
                                     type="text"
                                     name="email"
                                     placeholder="Email"
-                                    className="w-full border p-3 rounded-lg"
-                                />
-
-                                <ErrorMessage
-                                    name="email"
-                                    component="p"
-                                    className="text-red-500 text-sm mt-1"
                                 />
                             </div>
 
                             {/* Phone */}
                             <div>
 
-                                <Field
+                                <Commanyup
                                     type="text"
                                     name="phone"
                                     placeholder="Phone Number"
-                                    maxLength={10}
-                                    className="w-full border p-3 rounded-lg"
-                                />
-
-                                <ErrorMessage
-                                    name="phone"
-                                    component="p"
-                                    className="text-red-500 text-sm mt-1"
                                 />
                             </div>
 
                             {/* Password */}
                             <div>
 
-                                <Field
+                                <Commanyup
                                     type="password"
                                     name="password"
                                     placeholder="Password"
-                                    className="w-full border p-3 rounded-lg"
-                                />
-
-                                <ErrorMessage
-                                    name="password"
-                                    component="p"
-                                    className="text-red-500 text-sm mt-1"
                                 />
                             </div>
 
                             {/* Confirm Password */}
                             <div>
 
-                                <Field
+                                <Commanyup
                                     type="password"
                                     name="confirmPassword"
                                     placeholder="Confirm Password"
-                                    className="w-full border p-3 rounded-lg"
-                                />
-
-                                <ErrorMessage
-                                    name="confirmPassword"
-                                    component="p"
-                                    className="text-red-500 text-sm mt-1"
                                 />
                             </div>
 
                             {/* Age */}
                             <div>
 
-                                <Field
+                                <Commanyup
                                     type="number"
                                     name="age"
                                     placeholder="Age"
-                                    className="w-full border p-3 rounded-lg"
-                                />
-
-                                <ErrorMessage
-                                    name="age"
-                                    component="p"
-                                    className="text-red-500 text-sm mt-1"
                                 />
                             </div>
 
                             {/* Radio Button */}
-                            <div>
+                            <div className="border rounded-xl p-4">
 
-                                <p className="mb-2">
+                                <p className="font-semibold mb-3">
                                     Gender
                                 </p>
 
-                                <div className="flex gap-4">
+                                <div className="flex gap-6">
 
                                     <label>
-                                        <Field
+                                        <Commanyup
                                             type="radio"
                                             name="gender"
                                             value="Male"
+                                            showError={false}
                                         />
                                         Male
                                     </label>
 
                                     <label>
-                                        <Field
+                                        <Commanyup
                                             type="radio"
                                             name="gender"
                                             value="Female"
+                                            showError={false}
                                         />
                                         Female
                                     </label>
@@ -359,37 +304,41 @@ const Yup = () => {
                             </div>
 
                             {/* Checkbox */}
-                            <div>
-
-                                <p className="mb-2">
+                            <div className="border rounded-xl p-4">
+                                <p className="font-semibold mb-3">
                                     Hobbies
                                 </p>
 
-                                <div className="flex gap-4">
+                                <div className="flex flex-wrap gap-6">
 
                                     <label>
-                                        <Field
+                                        <Commanyup
                                             type="checkbox"
                                             name="hobbies"
                                             value="Cricket"
+                                            showError={false}
                                         />
                                         Cricket
                                     </label>
 
                                     <label>
-                                        <Field
+                                        <Commanyup
                                             type="checkbox"
                                             name="hobbies"
                                             value="Music"
+                                            showError={false}
+
                                         />
                                         Music
                                     </label>
 
                                     <label>
-                                        <Field
+                                        <Commanyup
                                             type="checkbox"
                                             name="hobbies"
                                             value="Coding"
+                                            showError={false}
+
                                         />
                                         Coding
                                     </label>
@@ -406,29 +355,20 @@ const Yup = () => {
                             {/* City */}
                             <div>
 
-                                <Field
+                                <Commanyup
                                     type="text"
                                     name="city"
                                     placeholder="City"
-                                    className="w-full border p-3 rounded-lg"
-                                />
-
-                                <ErrorMessage
-                                    name="city"
-                                    component="p"
-                                    className="text-red-500 text-sm mt-1"
                                 />
                             </div>
 
                             {/* Dropdown */}
                             <div>
 
-                                <Field
+                                <Commanyup
                                     as="select"
                                     name="course"
-                                    className="w-full border p-3 rounded-lg"
                                 >
-
                                     <option value="">
                                         Select Course
                                     </option>
@@ -444,46 +384,26 @@ const Yup = () => {
                                     <option value="Full Stack">
                                         Full Stack
                                     </option>
-
-                                </Field>
-
-                                <ErrorMessage
-                                    name="course"
-                                    component="p"
-                                    className="text-red-500 text-sm mt-1"
-                                />
+                                </Commanyup>
                             </div>
 
                             {/* Date Picker */}
                             <div>
 
-                                <Field
+                                <Commanyup
                                     type="date"
                                     name="dob"
-                                    className="w-full border p-3 rounded-lg"
-                                />
-
-                                <ErrorMessage
-                                    name="dob"
-                                    component="p"
-                                    className="text-red-500 text-sm mt-1"
                                 />
                             </div>
 
                             {/* Textarea */}
                             <div>
 
-                                <Field
+                                <Commanyup
                                     as="textarea"
                                     name="bio"
                                     placeholder="Enter Bio"
-                                    className="w-full border p-3 rounded-lg h-28"
-                                />
-
-                                <ErrorMessage
-                                    name="bio"
-                                    component="p"
-                                    className="text-red-500 text-sm mt-1"
+                                    className="w-full border border-gray-300 p-3 rounded-lg outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                                 />
                             </div>
 
@@ -498,7 +418,7 @@ const Yup = () => {
                                             e.target.files[0]
                                         );
                                     }}
-                                    className="w-full border p-3 rounded-lg"
+                                    className="w-full border border-gray-300 p-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                                 />
 
                                 <ErrorMessage
@@ -510,7 +430,7 @@ const Yup = () => {
 
                             <button
                                 type="submit"
-                                className="w-full bg-blue-500 text-white py-3 rounded-lg"
+                                className="w-full bg-blue-600 hover:bg-blue-700 transition-all duration-300 text-white py-3 rounded-xl font-semibold text-lg"
                             >
                                 Submit
                             </button>

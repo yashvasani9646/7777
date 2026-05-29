@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import CommonInput from "./CommanInput";
 const Validation = () => {
 
     const [formData, setFormData] = useState({
@@ -26,6 +26,11 @@ const Validation = () => {
         const { name, value, type, checked, files } =
             e.target;
 
+        setErrors((prev) => ({
+            ...prev,
+            [name]: "",
+        }));
+
         if (type === "checkbox") {
 
             let updatedHobbies = [
@@ -45,6 +50,11 @@ const Validation = () => {
                 ...formData,
                 hobbies: updatedHobbies,
             });
+
+            setErrors((prev) => ({
+                ...prev,
+                hobbies: "",
+            }));
         }
 
         else if (type === "file") {
@@ -237,176 +247,131 @@ const Validation = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4 py-10">
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 px-4 py-10">
 
             <form
                 onSubmit={handleSubmit}
-                className="w-full max-w-xl bg-white p-6 rounded-2xl shadow-lg space-y-4"
+                noValidate
+                className="w-full max-w-5xl bg-white p-8 rounded-3xl shadow-2xl border border-gray-200"
             >
 
-                <h1 className="text-3xl font-bold text-center">
-                    Custom Validation Form
-                </h1>
+                <div className="text-center mb-8">
+                    <h1 className="text-4xl font-bold text-gray-800">
+                        Registration Form
+                    </h1>
 
+                    <p className="text-gray-500 mt-2">
+                        Fill all details carefully
+                    </p>
+                </div>
                 {/* First Name */}
-                <div>
-                    <input
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <CommonInput
                         type="text"
                         name="firstName"
                         placeholder="First Name"
                         value={formData.firstName}
                         onChange={handleChange}
-                        className="w-full border p-3 rounded-lg"
+                        error={errors.firstName}
                     />
 
-                    {errors.firstName && (
-                        <p className="text-red-500 text-sm mt-1">
-                            {errors.firstName}
-                        </p>
-                    )}
-                </div>
 
-                {/* Last Name */}
-                <div>
-                    <input
+
+                    {/* Last Name */}
+                    <CommonInput
                         type="text"
                         name="lastName"
                         placeholder="Last Name"
                         value={formData.lastName}
                         onChange={handleChange}
-                        className="w-full border p-3 rounded-lg"
+                        error={errors.lastName}
                     />
 
-                    {errors.lastName && (
-                        <p className="text-red-500 text-sm mt-1">
-                            {errors.lastName}
-                        </p>
-                    )}
-                </div>
 
-                {/* Username */}
-                <div>
-                    <input
+
+                    {/* Username */}
+                    <CommonInput
                         type="text"
                         name="username"
                         placeholder="Username"
                         value={formData.username}
                         onChange={handleChange}
-                        className="w-full border p-3 rounded-lg"
+                        error={errors.username}
                     />
 
-                    {errors.username && (
-                        <p className="text-red-500 text-sm mt-1">
-                            {errors.username}
-                        </p>
-                    )}
-                </div>
 
-                {/* Email */}
-                <div>
-                    <input
+
+
+                    {/* Email */}
+                    <CommonInput
                         type="text"
                         name="email"
                         placeholder="Email"
                         value={formData.email}
                         onChange={handleChange}
-                        className="w-full border p-3 rounded-lg"
+                        error={errors.email}
                     />
 
-                    {errors.email && (
-                        <p className="text-red-500 text-sm mt-1">
-                            {errors.email}
-                        </p>
-                    )}
-                </div>
 
-                {/* Phone */}
-                <div>
-                    <input
+
+
+                    {/* Phone */}
+                    <CommonInput
                         type="text"
                         name="phone"
                         placeholder="Phone Number"
                         value={formData.phone}
                         onChange={handleChange}
-                        maxLength={10}
-                        className="w-full border p-3 rounded-lg"
+                        error={errors.phone}
                     />
 
-                    {errors.phone && (
-                        <p className="text-red-500 text-sm mt-1">
-                            {errors.phone}
-                        </p>
-                    )}
-                </div>
 
-                {/* Password */}
-                <div>
-                    <input
+
+                    {/* Password */}
+                    <CommonInput
                         type="password"
                         name="password"
                         placeholder="Password"
                         value={formData.password}
                         onChange={handleChange}
-                        className="w-full border p-3 rounded-lg"
+                        error={errors.password}
                     />
 
-                    {errors.password && (
-                        <p className="text-red-500 text-sm mt-1">
-                            {errors.password}
-                        </p>
-                    )}
-                </div>
 
-                {/* Confirm Password */}
-                <div>
-                    <input
+
+
+                    {/* Confirm Password */}
+                    <CommonInput
                         type="password"
                         name="confirmPassword"
                         placeholder="Confirm Password"
-                        value={
-                            formData.confirmPassword
-                        }
+                        value={formData.confirmPassword}
                         onChange={handleChange}
-                        className="w-full border p-3 rounded-lg"
+                        error={errors.confirmPassword}
                     />
 
-                    {errors.confirmPassword && (
-                        <p className="text-red-500 text-sm mt-1">
-                            {
-                                errors.confirmPassword
-                            }
-                        </p>
-                    )}
-                </div>
 
-                {/* Age */}
-                <div>
-                    <input
+
+                    {/* Age */}
+                    <CommonInput
                         type="number"
                         name="age"
                         placeholder="Age"
                         value={formData.age}
                         onChange={handleChange}
-                        className="w-full border p-3 rounded-lg"
+                        error={errors.age}
                     />
-
-                    {errors.age && (
-                        <p className="text-red-500 text-sm mt-1">
-                            {errors.age}
-                        </p>
-                    )}
                 </div>
 
                 {/* Radio Button */}
-                <div>
-                    <p className="font-medium mb-2">
+                <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5">
+                    <p className="font-semibold text-lg mb-4">
                         Gender
                     </p>
-
                     <div className="flex gap-4">
 
                         <label className="flex items-center gap-2">
-                            <input
+                            <CommonInput
                                 type="radio"
                                 name="gender"
                                 value="Male"
@@ -422,51 +387,45 @@ const Validation = () => {
                         </label>
 
                         <label className="flex items-center gap-2">
-                            <input
+                            <CommonInput
                                 type="radio"
                                 name="gender"
                                 value="Female"
-                                checked={
-                                    formData.gender ===
-                                    "Female"
-                                }
-                                onChange={
-                                    handleChange
-                                }
+                                checked={formData.gender === "Female"}
+                                onChange={handleChange}
                             />
                             Female
                         </label>
                     </div>
-
                     {errors.gender && (
                         <p className="text-red-500 text-sm mt-1">
                             {errors.gender}
                         </p>
                     )}
+
                 </div>
 
                 {/* Checkbox */}
-                <div>
+                <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5">
                     <p className="font-medium mb-2">
                         Hobbies
                     </p>
-
-                    <div className="flex gap-4 flex-wrap">
+                    <div className="flex flex-wrap gap-8">
 
                         <label className="flex items-center gap-2">
-                            <input
+                            <CommonInput
                                 type="checkbox"
+                                name="hobbies"
                                 value="Cricket"
-                                onChange={
-                                    handleChange
-                                }
+                                onChange={handleChange}
                             />
                             Cricket
                         </label>
 
                         <label className="flex items-center gap-2">
-                            <input
+                            <CommonInput
                                 type="checkbox"
+                                name="hobbies"
                                 value="Music"
                                 onChange={
                                     handleChange
@@ -476,8 +435,9 @@ const Validation = () => {
                         </label>
 
                         <label className="flex items-center gap-2">
-                            <input
+                            <CommonInput
                                 type="checkbox"
+                                name="hobbies"
                                 value="Coding"
                                 onChange={
                                     handleChange
@@ -486,112 +446,85 @@ const Validation = () => {
                             Coding
                         </label>
                     </div>
-
                     {errors.hobbies && (
                         <p className="text-red-500 text-sm mt-1">
                             {errors.hobbies}
                         </p>
                     )}
+
                 </div>
 
                 {/* City */}
                 <div>
-                    <input
+                    <CommonInput
                         type="text"
                         name="city"
                         placeholder="City"
                         value={formData.city}
                         onChange={handleChange}
-                        className="w-full border p-3 rounded-lg"
+                        error={errors.city}
                     />
 
-                    {errors.city && (
-                        <p className="text-red-500 text-sm mt-1">
-                            {errors.city}
-                        </p>
-                    )}
+
                 </div>
 
                 {/* Dropdown */}
                 <div>
-                    <select
+                    <CommonInput
+                        type="select"
                         name="course"
                         value={formData.course}
                         onChange={handleChange}
-                        className="w-full border p-3 rounded-lg"
-                    >
-                        <option value="">
-                            Select Course
-                        </option>
+                        error={errors.course}
+                        options={[
+                            "Select Course",
+                            "React JS",
+                            "Node JS",
+                            "Full Stack",
+                        ]}
+                    />
 
-                        <option value="React JS">
-                            React JS
-                        </option>
-
-                        <option value="Node JS">
-                            Node JS
-                        </option>
-
-                        <option value="Full Stack">
-                            Full Stack
-                        </option>
-                    </select>
-
-                    {errors.course && (
-                        <p className="text-red-500 text-sm mt-1">
-                            {errors.course}
-                        </p>
-                    )}
                 </div>
 
                 {/* Date Picker */}
                 <div>
-                    <input
+                    <CommonInput
                         type="date"
                         name="dob"
                         value={formData.dob}
                         onChange={handleChange}
-                        className="w-full border p-3 rounded-lg"
+                        error={errors.dob}
                     />
 
-                    {errors.dob && (
-                        <p className="text-red-500 text-sm mt-1">
-                            {errors.dob}
-                        </p>
-                    )}
+
                 </div>
 
                 {/* Textarea */}
-                <div>
-                    <textarea
+                <div className="w-full">
+                    <CommonInput
+                        type="textarea"
                         name="bio"
                         placeholder="Enter Bio"
                         value={formData.bio}
                         onChange={handleChange}
-                        className="w-full border p-3 rounded-lg h-28"
+                        error={errors.bio}
                     />
 
-                    {errors.bio && (
-                        <p className="text-red-500 text-sm mt-1">
-                            {errors.bio}
-                        </p>
-                    )}
+
                 </div>
 
                 {/* File Upload */}
                 <div>
-                    <input
+                    <CommonInput
                         type="file"
                         name="resume"
                         onChange={handleChange}
                         className="w-full border p-3 rounded-lg"
+                        error={errors.resume}
+
                     />
 
-                    {errors.resume && (
-                        <p className="text-red-500 text-sm mt-1">
-                            {errors.resume}
-                        </p>
-                    )}
+
                 </div>
 
                 <button
@@ -600,8 +533,8 @@ const Validation = () => {
                 >
                     Submit
                 </button>
-            </form>
-        </div>
+            </form >
+        </div >
     );
 };
 
