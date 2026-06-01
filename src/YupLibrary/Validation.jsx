@@ -1,5 +1,7 @@
 import { useState } from "react";
 import CommonInput from "./CommanInput";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 const Validation = () => {
 
     const [formData, setFormData] = useState({
@@ -15,7 +17,7 @@ const Validation = () => {
         hobbies: [],
         city: "",
         course: "",
-        dob: "",
+        dob: null,
         bio: "",
         resume: null,
     });
@@ -101,7 +103,7 @@ const Validation = () => {
         const phonePattern = /^[0-9]{10}$/;
 
         const passwordPattern =
-            /^(?=.*[A-Z])(?=.*[0-9]).{6,}$/;
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
 
         if (formData.firstName === "") {
             newErrors.firstName =
@@ -154,30 +156,28 @@ const Validation = () => {
             newErrors.password =
                 "Password is required";
         }
-        else if (
-            !passwordPattern.test(
-                formData.password
-            )
-        ) {
+        else if (formData.password.length < 8) {
             newErrors.password =
-                "Password must contain 1 uppercase, 1 number and minimum 6 characters";
+                "Password must be at least 8 characters";
         }
+        else if (!passwordPattern.test(formData.password)) {
+            newErrors.password =
+                "Password must contain uppercase, lowercase, number and special character";
+        }
+       if (formData.confirmPassword === "") {
+    newErrors.confirmPassword =
+        "Confirm Password is required";
+}
+else if (
+    formData.password !== formData.confirmPassword
+) {
+    newErrors.confirmPassword =
+        "Passwords do not match";
+}
 
-        if (
-            formData.confirmPassword === ""
-        ) {
-            newErrors.confirmPassword =
-                "Confirm Password is required";
-        }
-        else if (
-            formData.password !==
-            formData.confirmPassword
-        ) {
-            newErrors.confirmPassword =
-                "Passwords do not match";
-        }
 
-        // Age
+
+
         if (formData.age === "") {
             newErrors.age =
                 "Age is required";
@@ -209,11 +209,10 @@ const Validation = () => {
                 "Please select course";
         }
 
-        if (formData.dob === "") {
+        if (!formData.dob) {
             newErrors.dob =
                 "Please select date of birth";
         }
-
         if (formData.bio === "") {
             newErrors.bio =
                 "Bio is required";
@@ -255,7 +254,7 @@ const Validation = () => {
                 hobbies: [],
                 city: "",
                 course: "",
-                dob: "",
+                dob: null,
                 bio: "",
                 resume: null,
             });
@@ -280,100 +279,124 @@ const Validation = () => {
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
 
-                    <CommonInput
-                        type="text"
-                        name="firstName"
-                        placeholder="First Name"
-                        value={formData.firstName}
-                        onChange={handleChange}
-                        error={errors.firstName}
-                    />
+                    <div>
+                        <label className="block mb-2 text-sm font-medium text-slate-700">
+                            First Name
+                        </label>
+                        <CommonInput
+                            type="text"
+                            name="firstName"
+                            placeholder="Enter First Name"
+                            value={formData.firstName}
+                            onChange={handleChange}
+                            error={errors.firstName}
+                        />
+                    </div>
 
+                    <div>
+                        <label className="block mb-2 text-sm font-medium text-slate-700">
+                            Last Name
+                        </label>
+                        <CommonInput
+                            type="text"
+                            name="lastName"
+                            placeholder="Enter Last Name"
+                            value={formData.lastName}
+                            onChange={handleChange}
+                            error={errors.lastName}
+                        />
+                    </div>
 
+                    <div>
+                        <label className="block mb-2 text-sm font-medium text-slate-700">
+                            Username
+                        </label>
+                        <CommonInput
+                            type="text"
+                            name="username"
+                            placeholder="Enter Username"
+                            value={formData.username}
+                            onChange={handleChange}
+                            error={errors.username}
+                        />
+                    </div>
 
-                    <CommonInput
-                        type="text"
-                        name="lastName"
-                        placeholder="Last Name"
-                        value={formData.lastName}
-                        onChange={handleChange}
-                        error={errors.lastName}
-                    />
+                    <div>
+                        <label className="block mb-2 text-sm font-medium text-slate-700">
+                            Email Address
+                        </label>
+                        <CommonInput
+                            type="text"
+                            name="email"
+                            placeholder="Enter Email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            error={errors.email}
+                        />
+                    </div>
 
+                    <div>
+                        <label className="block mb-2 text-sm font-medium text-slate-700">
+                            Phone Number
+                        </label>
+                        <CommonInput
+                            type="text"
+                            name="phone"
+                            placeholder="Enter Phone Number"
+                            value={formData.phone}
+                            onChange={handleChange}
+                            error={errors.phone}
+                        />
+                    </div>
 
+                    <div>
+                        <label className="block mb-2 text-sm font-medium text-slate-700">
+                            Password
+                        </label>
+                        <CommonInput
+                            type="password"
+                            name="password"
+                            placeholder="Enter Password"
+                            value={formData.password}
+                            onChange={handleChange}
+                            error={errors.password}
+                        />
+                    </div>
 
-                    <CommonInput
-                        type="text"
-                        name="username"
-                        placeholder="Username"
-                        value={formData.username}
-                        onChange={handleChange}
-                        error={errors.username}
-                    />
+                    <div>
+                        <label className="block mb-2 text-sm font-medium text-slate-700">
+                            Confirm Password
+                        </label>
+                        <CommonInput
+                            type="password"
+                            name="confirmPassword"
+                            placeholder="Confirm Password"
+                            value={formData.confirmPassword}
+                            onChange={handleChange}
+                            error={errors.confirmPassword}
+                        />
+                    </div>
 
+                    <div>
+                        <label className="block mb-2 text-sm font-medium text-slate-700">
+                            Age
+                        </label>
+                        <CommonInput
+                            type="number"
+                            name="age"
+                            placeholder="Enter Age"
+                            value={formData.age}
+                            onChange={handleChange}
+                            error={errors.age}
+                        />
+                    </div>
 
-
-
-                    <CommonInput
-                        type="text"
-                        name="email"
-                        placeholder="Email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        error={errors.email}
-                    />
-
-
-
-
-                    <CommonInput
-                        type="text"
-                        name="phone"
-                        placeholder="Phone Number"
-                        value={formData.phone}
-                        onChange={handleChange}
-                        error={errors.phone}
-                    />
-
-
-
-                    <CommonInput
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        error={errors.password}
-                    />
-
-
-
-
-                    <CommonInput
-                        type="password"
-                        name="confirmPassword"
-                        placeholder="Confirm Password"
-                        value={formData.confirmPassword}
-                        onChange={handleChange}
-                        error={errors.confirmPassword}
-                    />
-
-
-
-                    <CommonInput
-                        type="number"
-                        name="age"
-                        placeholder="Age"
-                        value={formData.age}
-                        onChange={handleChange}
-                        error={errors.age}
-                    />
                 </div>
 
                 <div
                     className={`mt-6 rounded-2xl p-4 transition-all ${errors.hobbies
-                            ? "border-2 border-red-500 bg-red-50"
-                            : "border border-slate-200 bg-white"
+                        ? "border-2 border-red-500 bg-red-50"
+                        : "border border-slate-200 bg-white"
                         }`}
                 >
                     <h3 className="text-sm font-semibold text-slate-700 mb-3">
@@ -472,28 +495,40 @@ const Validation = () => {
 
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-6">
-                    <CommonInput
-                        type="text"
-                        name="city"
-                        placeholder="City"
-                        value={formData.city}
-                        onChange={handleChange}
-                        error={errors.city}
-                    />
 
-                    <CommonInput
-                        type="select"
-                        name="course"
-                        value={formData.course}
-                        onChange={handleChange}
-                        error={errors.course}
-                        options={[
-                            "Select Course",
-                            "React JS",
-                            "Node JS",
-                            "Full Stack",
-                        ]}
-                    />
+                    <div>
+                        <label className="block mb-2 text-sm font-medium text-slate-700">
+                            City
+                        </label>
+                        <CommonInput
+                            type="text"
+                            name="city"
+                            placeholder="Enter City"
+                            value={formData.city}
+                            onChange={handleChange}
+                            error={errors.city}
+                        />
+                    </div>
+
+                    <div>
+                        <label className="block mb-2 text-sm font-medium text-slate-700">
+                            Course
+                        </label>
+                        <CommonInput
+                            type="select"
+                            name="course"
+                            value={formData.course}
+                            onChange={handleChange}
+                            error={errors.course}
+                            options={[
+                                "Select Course",
+                                "React JS",
+                                "Node JS",
+                                "Full Stack",
+                            ]}
+                        />
+                    </div>
+
                 </div>
 
                 <div className="mt-6">
@@ -501,13 +536,26 @@ const Validation = () => {
                         Date of Birth
                     </label>
 
-                    <CommonInput
-                        type="date"
-                        name="dob"
-                        value={formData.dob}
-                        onChange={handleChange}
-                        error={errors.dob}
+                    <DatePicker
+                        selected={formData.dob}
+                        onChange={(date) =>
+                            setFormData({
+                                ...formData,
+                                dob: date,
+                            })
+                        }
+                        dateFormat="dd/MM/yyyy"
+                        placeholderText="Select Date of Birth"
+                        className={`w-full bg-white px-4 py-3 rounded-2xl text-slate-700 shadow-sm outline-none transition-all duration-300 ${errors.dob
+                            ? "border-2 border-red-500"
+                            : "border border-slate-300"
+                            }`}
                     />
+                    {errors.dob && (
+                        <p className="text-red-500 text-sm mt-1">
+                            {errors.dob}
+                        </p>
+                    )}
                 </div>
                 <div className="mt-6">
                     <label className="block text-sm font-medium text-slate-700 mb-2">

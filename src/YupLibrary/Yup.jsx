@@ -5,9 +5,11 @@ import {
     ErrorMessage,
 } from "formik";
 
+
 import * as YupValidation from "yup";
 import Commanyup from "./Commanyup";
-
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 const validationSchema =
     YupValidation.object({
 
@@ -54,8 +56,24 @@ const validationSchema =
         password:
             YupValidation.string()
                 .min(
-                    6,
-                    "Password must be at least 6 characters"
+                    8,
+                    "Password must be at least 8 characters"
+                )
+                .matches(
+                    /[A-Z]/,
+                    "Must contain at least 1 uppercase letter"
+                )
+                .matches(
+                    /[a-z]/,
+                    "Must contain at least 1 lowercase letter"
+                )
+                .matches(
+                    /[0-9]/,
+                    "Must contain at least 1 number"
+                )
+                .matches(
+                    /[!@#$%^&*(),.?":{}|<>]/,
+                    "Must contain at least 1 special character"
                 )
                 .required(
                     "Password is required"
@@ -112,7 +130,7 @@ const validationSchema =
                 ),
 
         dob:
-            YupValidation.string()
+            YupValidation.date()
                 .required(
                     "Please select date"
                 ),
@@ -135,6 +153,7 @@ const validationSchema =
     });
 
 const Yup = () => {
+
 
     return (
 
@@ -166,7 +185,7 @@ const Yup = () => {
                         hobbies: [],
                         city: "",
                         course: "",
-                        dob: "",
+                        dob: null,
                         bio: "",
                         resume: null,
                     }}
@@ -188,6 +207,7 @@ const Yup = () => {
                         setFieldValue,
                         errors,
                         touched,
+                        values,
                     }) => (
                         <Form className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="md:col-span-2">
@@ -198,7 +218,9 @@ const Yup = () => {
 
                             {/* First Name */}
                             <div>
-
+                                <label className="block mb-2 text-sm font-medium text-slate-700">
+                                    First Name
+                                </label>
                                 <Commanyup
                                     type="text"
                                     name="firstName"
@@ -210,7 +232,9 @@ const Yup = () => {
 
                             {/* Last Name */}
                             <div>
-
+                                <label className="block mb-2 text-sm font-medium text-slate-700">
+                                    Last Name
+                                </label>
                                 <Commanyup
                                     type="text"
                                     name="lastName"
@@ -222,6 +246,9 @@ const Yup = () => {
 
                             {/* Username */}
                             <div>
+                                <label className="block mb-2 text-sm font-medium text-slate-700">
+                                    User Name
+                                </label>
                                 <Commanyup
                                     type="text"
                                     name="username"
@@ -233,7 +260,9 @@ const Yup = () => {
 
                             {/* Email */}
                             <div>
-
+                                <label className="block mb-2 text-sm font-medium text-slate-700">
+                                    E-Mail
+                                </label>
                                 <Commanyup
                                     type="text"
                                     name="email"
@@ -244,7 +273,9 @@ const Yup = () => {
 
                             {/* Phone */}
                             <div>
-
+                                <label className="block mb-2 text-sm font-medium text-slate-700">
+                                    Phone Number
+                                </label>
                                 <Commanyup
                                     type="text"
                                     name="phone"
@@ -255,7 +286,11 @@ const Yup = () => {
                             </div>
 
                             {/* Password */}
+                            {/* Password */}
                             <div>
+                                <label className="block mb-2 text-sm font-medium text-slate-700">
+                                    Password
+                                </label>
 
                                 <Commanyup
                                     type="password"
@@ -267,6 +302,9 @@ const Yup = () => {
 
                             {/* Confirm Password */}
                             <div>
+                                <label className="block mb-2 text-sm font-medium text-slate-700">
+                                    Confirm Password
+                                </label>
 
                                 <Commanyup
                                     type="password"
@@ -278,7 +316,9 @@ const Yup = () => {
 
                             {/* Age */}
                             <div>
-
+                                <label className="block mb-2 text-sm font-medium text-slate-700">
+                                    Age
+                                </label>
                                 <Commanyup
                                     type="number"
                                     name="age"
@@ -298,98 +338,90 @@ const Yup = () => {
                                     : "border border-slate-200"
                                     }`}
                             >
+                                <p className="font-semibold mb-4">Gender</p>
 
-                                <p className="font-semibold mb-3">
-                                    Gender
-                                </p>
-
-                                <div className="flex gap-6">
-
-                                    <label>
+                                <div className="flex gap-8">
+                                    <label className="flex items-center gap-2 cursor-pointer">
                                         <Commanyup
                                             type="radio"
                                             name="gender"
                                             value="Male"
                                             showError={false}
                                         />
-                                        Male
+                                        <span>Male</span>
                                     </label>
 
-                                    <label>
+                                    <label className="flex items-center gap-2 cursor-pointer">
                                         <Commanyup
                                             type="radio"
                                             name="gender"
                                             value="Female"
                                             showError={false}
                                         />
-                                        Female
+                                        <span>Female</span>
                                     </label>
-
                                 </div>
 
                                 <ErrorMessage
                                     name="gender"
                                     component="p"
-                                    className="text-red-500 text-sm mt-1"
+                                    className="text-red-500 text-sm mt-2"
                                 />
                             </div>
 
                             {/* Checkbox */}
                             <div
-                                className={`bg-slate-50 rounded-2xl p-6 ${touched.gender && errors.gender
+                                className={`bg-slate-50 rounded-2xl p-6 ${touched.hobbies && errors.hobbies
                                     ? "border-2 border-red-500"
                                     : "border border-slate-200"
                                     }`}
                             >
-                                <p className="font-semibold mb-3">
-                                    Hobbies
-                                </p>
+                                <p className="font-semibold mb-4">Hobbies</p>
 
-                                <div className="flex flex-wrap gap-6">
-
-                                    <label>
+                                <div className="flex flex-wrap gap-8">
+                                    <label className="flex items-center gap-2 cursor-pointer">
                                         <Commanyup
                                             type="checkbox"
                                             name="hobbies"
                                             value="Cricket"
                                             showError={false}
                                         />
-                                        Cricket
+                                        <span>Cricket</span>
                                     </label>
 
-                                    <label>
+                                    <label className="flex items-center gap-2 cursor-pointer">
                                         <Commanyup
                                             type="checkbox"
                                             name="hobbies"
                                             value="Music"
                                             showError={false}
-
                                         />
-                                        Music
+                                        <span>Music</span>
                                     </label>
 
-                                    <label>
+                                    <label className="flex items-center gap-2 cursor-pointer">
                                         <Commanyup
                                             type="checkbox"
                                             name="hobbies"
                                             value="Coding"
                                             showError={false}
-
                                         />
-                                        Coding
+                                        <span>Coding</span>
                                     </label>
-
                                 </div>
 
                                 <ErrorMessage
                                     name="hobbies"
                                     component="p"
-                                    className="text-red-500 text-sm mt-1"
+                                    className="text-red-500 text-sm mt-2"
                                 />
                             </div>
 
                             {/* City */}
                             <div>
+                                <label className="block mb-2 text-sm font-medium text-slate-700">
+                                    City
+                                </label>
 
                                 <Commanyup
                                     type="text"
@@ -401,6 +433,10 @@ const Yup = () => {
 
                             {/* Dropdown */}
                             <div>
+                                <label className="block mb-2 text-sm font-medium text-slate-700">
+                                    Course
+                                </label>
+
 
                                 <Commanyup
                                     as="select"
@@ -426,16 +462,35 @@ const Yup = () => {
                             </div>
 
                             {/* Date Picker */}
-                            <div>
-                                <Commanyup
-                                    type="date"
-                                    name="dob"
-                                    error={touched.dob && errors.dob}
+                            <div className="md:col-span-2">
+                                <label className="block mb-2 text-sm font-medium text-slate-700">
+                                    Date of Birth
+                                </label>
+
+                                <DatePicker
+                                    selected={values.dob}
+                                    onChange={(date) => setFieldValue("dob", date)}
+                                    dateFormat="dd/MM/yyyy"
+                                    placeholderText="Select Date"
+                                    className={`w-full bg-white px-4 py-3 rounded-2xl shadow-sm outline-none transition-all ${touched.dob && errors.dob
+                                        ? "border-2 border-red-500"
+                                        : "border border-slate-300"
+                                        }`}
                                 />
+
+                                {touched.dob && errors.dob && (
+                                    <p className="text-red-500 text-sm mt-1">
+                                        {errors.dob}
+                                    </p>
+                                )}
                             </div>
 
                             {/* Textarea */}
                             <div className="md:col-span-2">
+                                <label className="block mb-2 text-sm font-medium text-slate-700">
+                                    Bio
+                                </label>
+
                                 <Commanyup
                                     as="textarea"
                                     name="bio"
@@ -446,30 +501,33 @@ const Yup = () => {
 
                             {/* File Upload */}
                             <div
-                                className={`md:col-span-2 border-2 border-dashed rounded-2xl p-8 text-center ${touched.resume && errors.resume
+                                className={`md:col-span-2 border-2 border-dashed rounded-3xl p-10 text-center transition-all ${touched.resume && errors.resume
                                     ? "border-red-500 bg-red-50"
-                                    : "border-slate-300 bg-slate-50"
+                                    : "border-slate-300 bg-slate-50 hover:border-slate-400"
                                     }`}
-                            >                                <div className="text-4xl mb-2">📄</div>
+                            >
+                                <div className="text-5xl mb-3">📄</div>
 
-                                <h3 className="font-semibold text-slate-700">
+                                <h3 className="text-lg font-semibold text-slate-700">
                                     Upload Resume
                                 </h3>
 
-                                <p className="text-sm text-slate-500 mb-4">
-                                    PDF, DOC, DOCX
+                                <p className="text-sm text-slate-500 mb-5">
+                                    PDF, DOC, DOCX (Max 5MB)
                                 </p>
 
                                 <input
                                     type="file"
-                                    onChange={(e) => {
-                                        setFieldValue(
-                                            "resume",
-                                            e.target.files[0]
-                                        );
-                                    }}
-                                    className="w-full rounded-xl border border-slate-300 bg-white p-3"
-                                    error={touched.file && errors.file}
+                                    onChange={(e) =>
+                                        setFieldValue("resume", e.target.files[0])
+                                    }
+                                    className="w-full rounded-2xl border border-slate-300 bg-white p-3"
+                                />
+
+                                <ErrorMessage
+                                    name="resume"
+                                    component="p"
+                                    className="text-red-500 text-sm mt-2"
                                 />
                             </div>
                             <button
@@ -482,7 +540,7 @@ const Yup = () => {
                     )}
                 </Formik>
             </div>
-        </div>
+        </div >
     );
 };
 

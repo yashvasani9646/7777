@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+
 const CommonInput = ({
     type,
     name,
@@ -7,6 +10,7 @@ const CommonInput = ({
     error,
     checked,
     options,
+
 }) => {
     const inputStyle = `
     w-full bg-white/80 backdrop-blur-sm px-4 py-3 rounded-2xl text-slate-700 shadow-sm outline-none transition-all duration-300
@@ -15,7 +19,7 @@ const CommonInput = ({
             : "border border-slate-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 hover:border-indigo-300"
         }
 `;
-
+    const [showPassword, setShowPassword] = useState(false);
     return (
         <div className="space-y-1">
             {type === "textarea" ? (
@@ -40,24 +44,46 @@ const CommonInput = ({
                     ))}
                 </select>
             ) : (
-                <input
-                    type={type}
-                    name={name}
-                    value={value}
-                    checked={checked}
-                    placeholder={placeholder}
-                    onChange={onChange}
-                    className={
-                        type === "radio" || type === "checkbox"
-                            ? "h-5 w-5 accent-indigo-600 cursor-pointer"
-                            : type === "file"
-                                ? `w-full cursor-pointer rounded-xl p-3 text-sm text-slate-600 ${error
-                                    ? "border-2 border-red-500 bg-red-50"
-                                    : "border border-slate-300 bg-slate-50"
-                                }`
-                                : inputStyle
-                    }
-                />
+                type === "password" ? (
+                    <div className="relative">
+                        <input
+                            type={showPassword ? "text" : "password"}
+                            maxLength={8}
+                            name={name}
+                            value={value}
+                            placeholder={placeholder}
+                            onChange={onChange}
+                            className={`${inputStyle} pr-12`}
+                        />
+
+                        <button
+                            type="button"
+                            onClick={() => setShowPassword(!showPassword)}
+                            className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-700"
+                        >
+                            {showPassword ? <FaEyeSlash /> : <FaEye />}
+                        </button>
+                    </div>
+                ) : (
+                    <input
+                        type={type}
+                        name={name}
+                        value={value}
+                        checked={checked}
+                        placeholder={placeholder}
+                        onChange={onChange}
+                        className={
+                            type === "radio" || type === "checkbox"
+                                ? "h-5 w-5 accent-indigo-600 cursor-pointer"
+                                : type === "file"
+                                    ? `w-full cursor-pointer rounded-xl p-3 text-sm text-slate-600 ${error
+                                        ? "border-2 border-red-500 bg-red-50"
+                                        : "border border-slate-300 bg-slate-50"
+                                    }`
+                                    : inputStyle
+                        }
+                    />
+                )
             )}
 
             {error && (
