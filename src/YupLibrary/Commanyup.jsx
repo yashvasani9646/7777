@@ -8,16 +8,30 @@ const Commanyup = ({
     children,
     value,
     showError = true,
+    error,
 }) => {
     return (
-        <div>
+        <div className="space-y-1">
             <Field
                 type={type}
                 name={name}
                 placeholder={placeholder}
                 as={as}
                 value={value}
-                className="w-full border border-gray-300 p-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className={
+                    type === "radio" || type === "checkbox"
+                        ? "h-4 w-4 accent-slate-900 cursor-pointer"
+                        : `w-full bg-white px-4 py-3 rounded-2xl text-slate-700 shadow-sm outline-none transition-all duration-300 ${error
+                            ? "border-2 border-red-500 focus:border-red-500 focus:ring-4 focus:ring-red-100"
+                            : "border border-slate-300 focus:border-slate-900 focus:ring-4 focus:ring-slate-200 hover:border-slate-400"
+                        }`}
+                onInput={(e) => {
+                    if (name === "phone") {
+                        e.target.value = e.target.value
+                            .replace(/\D/g, "")
+                            .slice(0, 10);
+                    }
+                }}
             >
                 {children}
             </Field>
@@ -26,7 +40,7 @@ const Commanyup = ({
                 <ErrorMessage
                     name={name}
                     component="p"
-                    className="text-red-500 text-sm mt-1"
+                    className="text-red-500 text-sm font-medium mt-1"
                 />
             )}
         </div>

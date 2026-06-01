@@ -20,6 +20,7 @@ const Validation = () => {
         resume: null,
     });
 
+
     const [errors, setErrors] = useState({});
 
     const handleChange = (e) => {
@@ -65,11 +66,28 @@ const Validation = () => {
         }
 
         else {
+
+            if (name === "phone") {
+                const onlyNumbers = value.replace(/\D/g, "");
+
+                if (onlyNumbers.length > 10) {
+                    return;
+                }
+
+                setFormData({
+                    ...formData,
+                    phone: onlyNumbers,
+                });
+
+                return;
+            }
+
             setFormData({
                 ...formData,
                 [name]: value,
             });
         }
+
     };
 
     const handleSubmit = (e) => {
@@ -119,7 +137,6 @@ const Validation = () => {
                 "Invalid Email Address";
         }
 
-        // Phone
         if (formData.phone === "") {
             newErrors.phone =
                 "Phone Number is required";
@@ -133,7 +150,6 @@ const Validation = () => {
                 "Phone Number must be 10 digits";
         }
 
-        // Password
         if (formData.password === "") {
             newErrors.password =
                 "Password is required";
@@ -247,25 +263,23 @@ const Validation = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 px-4 py-10">
+        <div className="min-h-screen bg-slate-100 py-10 px-4">
 
             <form
                 onSubmit={handleSubmit}
                 noValidate
-                className="w-full max-w-5xl bg-white p-8 rounded-3xl shadow-2xl border border-gray-200"
+                className="max-w-4xl mx-auto bg-white rounded-3xl shadow-xl p-10"
             >
-
-                <div className="text-center mb-8">
-                    <h1 className="text-4xl font-bold text-gray-800">
-                        Registration Form
+                <div className="text-center mb-10">
+                    <h1 className="text-3xl font-bold text-slate-900">
+                        Create Your Account
                     </h1>
-
-                    <p className="text-gray-500 mt-2">
-                        Fill all details carefully
+                    <p className="text-slate-500 mt-2">
+                        Fill in your information to get started
                     </p>
                 </div>
-                {/* First Name */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+
                     <CommonInput
                         type="text"
                         name="firstName"
@@ -277,7 +291,6 @@ const Validation = () => {
 
 
 
-                    {/* Last Name */}
                     <CommonInput
                         type="text"
                         name="lastName"
@@ -289,7 +302,6 @@ const Validation = () => {
 
 
 
-                    {/* Username */}
                     <CommonInput
                         type="text"
                         name="username"
@@ -302,7 +314,6 @@ const Validation = () => {
 
 
 
-                    {/* Email */}
                     <CommonInput
                         type="text"
                         name="email"
@@ -315,7 +326,6 @@ const Validation = () => {
 
 
 
-                    {/* Phone */}
                     <CommonInput
                         type="text"
                         name="phone"
@@ -327,7 +337,6 @@ const Validation = () => {
 
 
 
-                    {/* Password */}
                     <CommonInput
                         type="password"
                         name="password"
@@ -340,7 +349,6 @@ const Validation = () => {
 
 
 
-                    {/* Confirm Password */}
                     <CommonInput
                         type="password"
                         name="confirmPassword"
@@ -352,7 +360,6 @@ const Validation = () => {
 
 
 
-                    {/* Age */}
                     <CommonInput
                         type="number"
                         name="age"
@@ -363,13 +370,17 @@ const Validation = () => {
                     />
                 </div>
 
-                {/* Radio Button */}
-                <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5">
-                    <p className="font-semibold text-lg mb-4">
+                <div
+                    className={`mt-6 rounded-2xl p-4 transition-all ${errors.hobbies
+                            ? "border-2 border-red-500 bg-red-50"
+                            : "border border-slate-200 bg-white"
+                        }`}
+                >
+                    <h3 className="text-sm font-semibold text-slate-700 mb-3">
                         Gender
-                    </p>
-                    <div className="flex gap-4">
+                    </h3>
 
+                    <div className="flex gap-6 mt-3">
                         <label className="flex items-center gap-2">
                             <CommonInput
                                 type="radio"
@@ -405,13 +416,17 @@ const Validation = () => {
 
                 </div>
 
-                {/* Checkbox */}
-                <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5">
-                    <p className="font-medium mb-2">
+                <div
+                    className={`mt-6 rounded-2xl p-4 transition-all ${errors.gender
+                        ? "border-2 border-red-500 bg-red-50"
+                        : "border border-slate-200 bg-white"
+                        }`}
+                >
+                    <h3 className="text-sm font-semibold text-slate-700 mb-3">
                         Hobbies
-                    </p>
-                    <div className="flex flex-wrap gap-8">
+                    </h3>
 
+                    <div className="flex flex-wrap gap-6">
                         <label className="flex items-center gap-2">
                             <CommonInput
                                 type="checkbox"
@@ -454,8 +469,9 @@ const Validation = () => {
 
                 </div>
 
-                {/* City */}
-                <div>
+
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-6">
                     <CommonInput
                         type="text"
                         name="city"
@@ -465,11 +481,6 @@ const Validation = () => {
                         error={errors.city}
                     />
 
-
-                </div>
-
-                {/* Dropdown */}
-                <div>
                     <CommonInput
                         type="select"
                         name="course"
@@ -483,11 +494,13 @@ const Validation = () => {
                             "Full Stack",
                         ]}
                     />
-
                 </div>
 
-                {/* Date Picker */}
-                <div>
+                <div className="mt-6">
+                    <label className="block text-sm font-medium text-slate-700 mb-2">
+                        Date of Birth
+                    </label>
+
                     <CommonInput
                         type="date"
                         name="dob"
@@ -495,12 +508,11 @@ const Validation = () => {
                         onChange={handleChange}
                         error={errors.dob}
                     />
-
-
                 </div>
-
-                {/* Textarea */}
-                <div className="w-full">
+                <div className="mt-6">
+                    <label className="block text-sm font-medium text-slate-700 mb-2">
+                        Bio
+                    </label>
                     <CommonInput
                         type="textarea"
                         name="bio"
@@ -513,25 +525,29 @@ const Validation = () => {
 
                 </div>
 
-                {/* File Upload */}
-                <div>
+                <div className="border-2 border-dashed border-slate-300 rounded-2xl p-8 text-center mt-6 bg-slate-50">
+                    <div className="text-4xl mb-2">📄</div>
+
+                    <h3 className="font-semibold text-slate-700">
+                        Upload Resume
+                    </h3>
+
+                    <p className="text-sm text-slate-500 mt-1 mb-4">
+                        Drag & Drop or Click to Select File
+                    </p>
+
                     <CommonInput
                         type="file"
                         name="resume"
                         onChange={handleChange}
-                        className="w-full border p-3 rounded-lg"
                         error={errors.resume}
-
                     />
-
-
                 </div>
-
                 <button
                     type="submit"
-                    className="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-lg"
+                    className="w-full mt-8 bg-slate-900 text-white py-4 rounded-2xl font-medium hover:bg-slate-800 transition"
                 >
-                    Submit
+                    Create Account
                 </button>
             </form >
         </div >

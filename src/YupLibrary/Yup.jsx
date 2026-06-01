@@ -138,16 +138,21 @@ const Yup = () => {
 
     return (
 
-        <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4 py-10">
+        <div className="min-h-screen bg-gradient-to-br from-slate-100 via-white to-slate-200 px-4 py-10">
 
-            <div className="w-full max-w-3xl bg-white p-8 rounded-3xl shadow-2xl border border-gray-200">
+            <div className="w-full max-w-5xl mx-auto bg-white rounded-[32px] shadow-[0_20px_60px_rgba(0,0,0,0.12)] border border-slate-200 p-10 md:p-12">
 
-                <h1 className="text-4xl font-bold text-center mb-2 text-gray-800">
-                    Yup Validation Form
-                </h1>
+                <div className="text-center mb-10">
+                    <h1 className="text-4xl font-bold text-slate-900">
+                        Create Your Account
+                    </h1>
+
+                    <p className="text-slate-500 mt-2">
+                        Fill in your details to create your account
+                    </p>
+                </div>
 
                 <Formik
-
                     initialValues={{
                         firstName: "",
                         lastName: "",
@@ -166,12 +171,12 @@ const Yup = () => {
                         resume: null,
                     }}
 
-                    validationSchema={
-                        validationSchema
-                    }
+                    validationSchema={validationSchema}
+
+                    validateOnChange={true}
+                    validateOnBlur={true}
 
                     onSubmit={(values) => {
-
                         console.log(values);
 
                         alert(
@@ -179,12 +184,17 @@ const Yup = () => {
                         );
                     }}
                 >
-
                     {({
                         setFieldValue,
+                        errors,
+                        touched,
                     }) => (
-
-                        <Form className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <Form className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="md:col-span-2">
+                                <h2 className="text-lg font-semibold text-slate-800 border-b pb-3 mb-2">
+                                    Personal Information
+                                </h2>
+                            </div>
 
                             {/* First Name */}
                             <div>
@@ -193,6 +203,8 @@ const Yup = () => {
                                     type="text"
                                     name="firstName"
                                     placeholder="First Name"
+                                    error={touched.firstName && errors.firstName}
+
                                 />
                             </div>
 
@@ -203,6 +215,8 @@ const Yup = () => {
                                     type="text"
                                     name="lastName"
                                     placeholder="Last Name"
+                                    error={touched.lastName && errors.lastName}
+
                                 />
                             </div>
 
@@ -212,6 +226,8 @@ const Yup = () => {
                                     type="text"
                                     name="username"
                                     placeholder="Username"
+                                    error={touched.username && errors.username}
+
                                 />
                             </div>
 
@@ -222,6 +238,7 @@ const Yup = () => {
                                     type="text"
                                     name="email"
                                     placeholder="Email"
+                                    error={touched.email && errors.email}
                                 />
                             </div>
 
@@ -232,6 +249,8 @@ const Yup = () => {
                                     type="text"
                                     name="phone"
                                     placeholder="Phone Number"
+                                    maxLength={10}
+                                    error={touched.phone && errors.phone}
                                 />
                             </div>
 
@@ -242,6 +261,7 @@ const Yup = () => {
                                     type="password"
                                     name="password"
                                     placeholder="Password"
+                                    error={touched.password && errors.password}
                                 />
                             </div>
 
@@ -252,6 +272,7 @@ const Yup = () => {
                                     type="password"
                                     name="confirmPassword"
                                     placeholder="Confirm Password"
+                                    error={touched.confirmPassword && errors.confirmPassword}
                                 />
                             </div>
 
@@ -262,11 +283,21 @@ const Yup = () => {
                                     type="number"
                                     name="age"
                                     placeholder="Age"
+                                    error={touched.age && errors.age}
                                 />
                             </div>
-
+                            <div className="md:col-span-2 mt-2">
+                                <h2 className="text-lg font-semibold text-slate-800 border-b pb-3 mb-2">
+                                    Additional Information
+                                </h2>
+                            </div>
                             {/* Radio Button */}
-                            <div className="border rounded-xl p-4">
+                            <div
+                                className={`bg-slate-50 rounded-2xl p-6 ${touched.gender && errors.gender
+                                    ? "border-2 border-red-500"
+                                    : "border border-slate-200"
+                                    }`}
+                            >
 
                                 <p className="font-semibold mb-3">
                                     Gender
@@ -304,7 +335,12 @@ const Yup = () => {
                             </div>
 
                             {/* Checkbox */}
-                            <div className="border rounded-xl p-4">
+                            <div
+                                className={`bg-slate-50 rounded-2xl p-6 ${touched.gender && errors.gender
+                                    ? "border-2 border-red-500"
+                                    : "border border-slate-200"
+                                    }`}
+                            >
                                 <p className="font-semibold mb-3">
                                     Hobbies
                                 </p>
@@ -359,6 +395,7 @@ const Yup = () => {
                                     type="text"
                                     name="city"
                                     placeholder="City"
+                                    error={touched.city && errors.city}
                                 />
                             </div>
 
@@ -368,6 +405,7 @@ const Yup = () => {
                                 <Commanyup
                                     as="select"
                                     name="course"
+                                    error={touched.course && errors.course}
                                 >
                                     <option value="">
                                         Select Course
@@ -389,26 +427,38 @@ const Yup = () => {
 
                             {/* Date Picker */}
                             <div>
-
                                 <Commanyup
                                     type="date"
                                     name="dob"
+                                    error={touched.dob && errors.dob}
                                 />
                             </div>
 
                             {/* Textarea */}
-                            <div>
-
+                            <div className="md:col-span-2">
                                 <Commanyup
                                     as="textarea"
                                     name="bio"
-                                    placeholder="Enter Bio"
-                                    className="w-full border border-gray-300 p-3 rounded-lg outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                    placeholder="Tell us about yourself..."
+                                    error={touched.bio && errors.bio}
                                 />
                             </div>
 
                             {/* File Upload */}
-                            <div>
+                            <div
+                                className={`md:col-span-2 border-2 border-dashed rounded-2xl p-8 text-center ${touched.resume && errors.resume
+                                    ? "border-red-500 bg-red-50"
+                                    : "border-slate-300 bg-slate-50"
+                                    }`}
+                            >                                <div className="text-4xl mb-2">📄</div>
+
+                                <h3 className="font-semibold text-slate-700">
+                                    Upload Resume
+                                </h3>
+
+                                <p className="text-sm text-slate-500 mb-4">
+                                    PDF, DOC, DOCX
+                                </p>
 
                                 <input
                                     type="file"
@@ -418,21 +468,14 @@ const Yup = () => {
                                             e.target.files[0]
                                         );
                                     }}
-                                    className="w-full border border-gray-300 p-3 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                />
-
-                                <ErrorMessage
-                                    name="resume"
-                                    component="p"
-                                    className="text-red-500 text-sm mt-1"
+                                    className="w-full rounded-xl border border-slate-300 bg-white p-3"
+                                    error={touched.file && errors.file}
                                 />
                             </div>
-
                             <button
                                 type="submit"
-                                className="w-full bg-blue-600 hover:bg-blue-700 transition-all duration-300 text-white py-3 rounded-xl font-semibold text-lg"
-                            >
-                                Submit
+                                className="md:col-span-2 w-full py-4 rounded-2xl bg-slate-900 text-white font-semibold text-lg hover:bg-slate-800 transition-all duration-300"                            >
+                                Create Account
                             </button>
 
                         </Form>
