@@ -1,6 +1,7 @@
 import { Field, ErrorMessage } from "formik";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
+import Select from "react-select";
 
 const Commanyup = ({
     type,
@@ -25,8 +26,8 @@ const Commanyup = ({
                         placeholder={placeholder}
                         value={value}
                         className={`w-full bg-white px-4 py-3 pr-12 rounded-2xl text-slate-700 shadow-sm outline-none transition-all duration-300 ${error
-                                ? "border-2 border-red-500 focus:border-red-500 focus:ring-4 focus:ring-red-100"
-                                : "border border-slate-300 focus:border-slate-900 focus:ring-4 focus:ring-slate-200 hover:border-slate-400"
+                            ? "border-2 border-red-500 focus:border-red-500 focus:ring-4 focus:ring-red-100"
+                            : "border border-slate-300 focus:border-slate-900 focus:ring-4 focus:ring-slate-200 hover:border-slate-400"
                             }`}
                     />
 
@@ -38,7 +39,39 @@ const Commanyup = ({
                         {showPassword ? <FaEyeSlash /> : <FaEye />}
                     </button>
                 </div>
+            ) : as === "select" ? (
+                <Select
+                    options={[
+                        { value: "React JS", label: "React JS" },
+                        { value: "Node JS", label: "Node JS" },
+                        { value: "Full Stack", label: "Full Stack" },
+                    ]}
+                    placeholder="Select Course"
+                    styles={{
+                        control: (base, state) => ({
+                            ...base,
+                            minHeight: 52,
+                            borderRadius: 16,
+                            borderColor: error ? "#ef4444" : "#cbd5e1",
+                            boxShadow: state.isFocused
+                                ? "0 0 0 4px rgba(99,102,241,0.15)"
+                                : "none",
+                            "&:hover": {
+                                borderColor: "#6366f1",
+                            },
+                        }),
+                        option: (base, state) => ({
+                            ...base,
+                            backgroundColor: state.isFocused
+                                ? "#e0e7ff"
+                                : "#fff",
+                            color: "#334155",
+                            cursor: "pointer",
+                        }),
+                    }}
+                />
             ) : (
+
                 <Field
                     type={type}
                     name={name}
@@ -73,7 +106,7 @@ const Commanyup = ({
                 />
             )}
         </div>
-    );  
+    );
 };
 
 export default Commanyup;

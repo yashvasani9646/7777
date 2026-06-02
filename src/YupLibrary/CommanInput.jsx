@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import Select from "react-select";
 
 const CommonInput = ({
     type,
@@ -31,18 +32,33 @@ const CommonInput = ({
                     className={`${inputStyle} h-32 resize-none`}
                 />
             ) : type === "select" ? (
-                <select
-                    name={name}
-                    value={value}
-                    onChange={onChange}
-                    className={inputStyle}
-                >
-                    {options?.map((item) => (
-                        <option key={item} value={item}>
-                            {item}
-                        </option>
-                    ))}
-                </select>
+                <Select
+                    options={options?.map((item) => ({
+                        value: item,
+                        label: item,
+                    }))}
+                    value={
+                        options?.find(
+                            (item) => item === value
+                        )
+                            ? {
+                                value: value,
+                                label: value,
+                            }
+                            : null
+                    }
+                    onChange={(selected) =>
+                        onChange({
+                            target: {
+                                name,
+                                value: selected?.value || "",
+                            },
+                        })
+                    }
+                    placeholder="Select Course"
+                    className="react-select-container"
+                    classNamePrefix="react-select"
+                />
             ) : (
                 type === "password" ? (
                     <div className="relative">
