@@ -65,6 +65,10 @@ const Validation = () => {
                 ...formData,
                 [name]: files[0],
             });
+
+            if (files[0]) {
+                setPreview(URL.createObjectURL(files[0]));
+            }
         }
 
         else {
@@ -164,16 +168,16 @@ const Validation = () => {
             newErrors.password =
                 "Password must contain uppercase, lowercase, number and special character";
         }
-       if (formData.confirmPassword === "") {
-    newErrors.confirmPassword =
-        "Confirm Password is required";
-}
-else if (
-    formData.password !== formData.confirmPassword
-) {
-    newErrors.confirmPassword =
-        "Passwords do not match";
-}
+        if (formData.confirmPassword === "") {
+            newErrors.confirmPassword =
+                "Confirm Password is required";
+        }
+        else if (
+            formData.password !== formData.confirmPassword
+        ) {
+            newErrors.confirmPassword =
+                "Passwords do not match";
+        }
 
 
 
@@ -261,6 +265,7 @@ else if (
         }
     };
 
+    const [preview, setPreview] = useState(null);
     return (
         <div className="min-h-screen bg-slate-100 py-10 px-4">
 
@@ -590,6 +595,16 @@ else if (
                         onChange={handleChange}
                         error={errors.resume}
                     />
+
+                    {preview && (
+                        <div className="mt-4">
+                            <img
+                                src={preview}
+                                alt="Preview"
+                                className="w-40 h-40 object-cover rounded-xl border mx-auto"
+                            />
+                        </div>
+                    )}
                 </div>
                 <button
                     type="submit"
