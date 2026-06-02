@@ -188,6 +188,7 @@ const Yup = () => {
                         dob: null,
                         bio: "",
                         resume: null,
+                        resumePreview: "",
                     }}
 
                     validationSchema={validationSchema}
@@ -518,12 +519,30 @@ const Yup = () => {
 
                                 <input
                                     type="file"
-                                    onChange={(e) =>
-                                        setFieldValue("resume", e.target.files[0])
-                                    }
+                                    accept="image/*"
+                                    onChange={(e) => {
+                                        const file = e.target.files[0];
+
+                                        setFieldValue("resume", file);
+
+                                        if (file) {
+                                            setFieldValue(
+                                                "resumePreview",
+                                                URL.createObjectURL(file)
+                                            );
+                                        }
+                                    }}
                                     className="w-full rounded-2xl border border-slate-300 bg-white p-3"
                                 />
-
+                                {values.resumePreview && (
+                                    <div className="mt-5 flex justify-center">
+                                        <img
+                                            src={values.resumePreview}
+                                            alt="Preview"
+                                            className="w-40 h-40 object-cover rounded-2xl border border-slate-300 shadow-md"
+                                        />
+                                    </div>
+                                )}
                                 <ErrorMessage
                                     name="resume"
                                     component="p"
