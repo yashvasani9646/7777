@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CommonInput from "./CommanInput";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import toast, { Toaster } from "react-hot-toast";
+
 const Validation = () => {
 
     const [formData, setFormData] = useState({
@@ -24,6 +26,14 @@ const Validation = () => {
 
 
     const [errors, setErrors] = useState({});
+    const [users, setUsers] = useState([]);
+    useEffect(() => {
+        const savedUsers = localStorage.getItem("users");
+
+        if (savedUsers) {
+            setUsers(JSON.parse(savedUsers));
+        }
+    }, []);
 
     const handleChange = (e) => {
         const { name, value, type, checked, files } =
@@ -95,6 +105,25 @@ const Validation = () => {
         }
 
     };
+    const handleEdit = (index) => {
+        setFormData(users[index]);
+        setEditIndex(index);
+    };
+
+  const handleDelete = (index) => {
+    const updatedUsers = users.filter(
+        (_, i) => i !== index
+    );
+
+    setUsers(updatedUsers);
+
+    localStorage.setItem(
+        "users",
+        JSON.stringify(updatedUsers)
+    );
+};
+
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -239,9 +268,40 @@ const Validation = () => {
         if (
             Object.keys(newErrors).length === 0
         ) {
-            alert(
-                "Form Submitted Successfully"
-            );
+            toast.success('Successfully toasted!')
+
+
+
+            if (editIndex !== null) {
+
+                const updatedUsers = [...users];
+
+                updatedUsers[editIndex] = formData;
+
+                setUsers(updatedUsers);
+
+                setEditIndex(null);
+
+
+                localStorage.setItem(
+                    "users",
+                    JSON.stringify(updatedUsers)
+                );
+
+            } else {
+
+                const updatedUsers = [
+                    ...users,
+                    formData,
+                ];
+
+                setUsers(updatedUsers);
+
+                localStorage.setItem(
+                    "users",
+                    JSON.stringify(updatedUsers)
+                );
+            }
 
             console.log(formData);
 
@@ -261,13 +321,20 @@ const Validation = () => {
                 dob: null,
                 bio: "",
                 resume: null,
+
             });
+            setFileKey((prev) => prev + 1);
+            setPreview(null);
         }
     };
 
     const [preview, setPreview] = useState(null);
+    const [editIndex, setEditIndex] = useState(null);
+    const [fileKey, setFileKey] = useState(0);
     return (
+
         <div className="min-h-screen bg-slate-100 py-10 px-4">
+            <Toaster />
 
             <form
                 onSubmit={handleSubmit}
@@ -459,7 +526,21 @@ const Validation = () => {
                             <CommonInput
                                 type="checkbox"
                                 name="hobbies"
+                                value="Music"
+                                onChange={handleChange}
+                                checked={formData.hobbies.includes("Music")}
+
+                            />
+                            Music
+                        </label>
+
+                        <label className="flex items-center gap-2">
+                            <CommonInput
+                                type="checkbox"
+                                name="hobbies"
                                 value="Cricket"
+                                checked={formData.hobbies.includes("Cricket")}
+
                                 onChange={handleChange}
                             />
                             Cricket
@@ -469,12 +550,11 @@ const Validation = () => {
                             <CommonInput
                                 type="checkbox"
                                 name="hobbies"
-                                value="Music"
-                                onChange={
-                                    handleChange
-                                }
+                                value="Traveling"
+                                checked={formData.hobbies.includes("Traveling")}
+                                onChange={handleChange}
                             />
-                            Music
+                            Traveling
                         </label>
 
                         <label className="flex items-center gap-2">
@@ -482,9 +562,8 @@ const Validation = () => {
                                 type="checkbox"
                                 name="hobbies"
                                 value="Coding"
-                                onChange={
-                                    handleChange
-                                }
+                                checked={formData.hobbies.includes("Coding")}
+                                onChange={handleChange}
                             />
                             Coding
                         </label>
@@ -590,6 +669,7 @@ const Validation = () => {
                     </p>
 
                     <CommonInput
+                        key={fileKey}
                         type="file"
                         name="resume"
                         onChange={handleChange}
@@ -610,9 +690,132 @@ const Validation = () => {
                     type="submit"
                     className="w-full mt-8 bg-slate-900 text-white py-4 rounded-2xl font-medium hover:bg-slate-800 transition"
                 >
-                    Create Account
+                    {editIndex !== null
+                        ? "Update User"
+                        : "Create Account"}
                 </button>
             </form >
+            {users.length > 0 && (
+                <div className="max-w-7xl mx-auto mt-10 bg-white rounded-3xl shadow-2xl border border-slate-200 p-6 overflow-x-auto">
+
+                    <h2 className="text-2xl font-bold mb-5">
+                        Submitted Users
+                    </h2>
+
+                    <table className="w-full border-collapse overflow-hidden rounded-2xl shadow-lg">
+                        <thead>
+                            <tr className="bg-slate-900 text-white">
+                                <th className="px-4 py-4 border border-slate-700">First Name</th>
+                                <th className="px-4 py-4 border border-slate-700">Last Name</th>
+                                <th className="px-4 py-4 border border-slate-700">Username</th>
+                                <th className="px-4 py-4 border border-slate-700">Email</th>
+                                <th className="px-4 py-4 border border-slate-700">Phone</th>
+                                <th className="px-4 py-4 border border-slate-700">Age</th>
+                                <th className="px-4 py-4 border border-slate-700">Gender</th>
+                                <th className="px-4 py-4 border border-slate-700">Hobbies</th>
+                                <th className="px-4 py-4 border border-slate-700">City</th>
+                                <th className="px-4 py-4 border border-slate-700">Course</th>
+                                <th className="px-4 py-4 border border-slate-700">DOB</th>
+                                <th className="px-4 py-4 border border-slate-700">Bio</th>
+                                <th className="px-4 py-4 border border-slate-700">Resume</th>
+                                <th className="px-4 py-4 border border-slate-700">Action</th>
+
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {users.map((user, index) => (
+                                <tr
+                                    key={index}
+                                    className="hover:bg-slate-50 transition duration-200"
+                                >
+                                    <td className="px-4 py-3 border border-slate-200">
+                                        {user.firstName}
+                                    </td>
+
+                                    <td className="px-4 py-3 border border-slate-200">
+                                        {user.lastName}
+                                    </td>
+
+                                    <td className="px-4 py-3 border border-slate-200">
+                                        {user.username}
+                                    </td>
+
+                                    <td className="px-4 py-3 border border-slate-200">
+                                        {user.email}
+                                    </td>
+
+                                    <td className="px-4 py-3 border border-slate-200">
+                                        {user.phone}
+                                    </td>
+
+                                    <td className="px-4 py-3 border border-slate-200">
+                                        {user.age}
+                                    </td>
+
+                                    <td className="px-4 py-3 border border-slate-200">
+                                        <span className="px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-sm">
+                                            {user.gender}
+                                        </span>
+                                    </td>
+
+                                    <td className="px-4 py-3 border border-slate-200">
+                                        {user.hobbies.join(", ")}
+                                    </td>
+
+                                    <td className="px-4 py-3 border border-slate-200">
+                                        {user.city}
+                                    </td>
+
+                                    <td className="px-4 py-3 border border-slate-200">
+                                        {user.course}
+                                    </td>
+
+                                    <td className="px-4 py-3 border border-slate-200">
+                                        {user.dob
+                                            ? new Date(user.dob).toLocaleDateString()
+                                            : "-"}
+                                    </td>
+
+                                    <td className="px-4 py-3 border border-slate-200 max-w-xs truncate">
+                                        {user.bio}
+                                    </td>
+
+                                    <td className="px-4 py-3 border border-slate-200">
+                                        {user.resume && (
+                                            <img
+                                                src={URL.createObjectURL(user.resume)}
+                                                alt="resume"
+                                                className="w-14 h-14 rounded-lg object-cover mx-auto border"
+                                            />
+                                        )}
+                                    </td>
+                                    <td className="px-4 py-3 border border-slate-200">
+                                        <div className="flex gap-2 justify-center">
+                                            <button
+                                                onClick={() => handleEdit(index)}
+                                                type="button"
+                                                className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg"
+                                            >
+                                                Edit
+                                            </button>
+
+                                            <button
+                                                onClick={() => handleDelete(index)}
+                                                type="button"
+                                                className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg"
+                                            >
+                                                Delete
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+
+                </div>
+            )}
         </div >
     );
 };
