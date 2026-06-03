@@ -12,6 +12,7 @@ const Commanyup = ({
     value,
     showError = true,
     error,
+    setFieldValue,
 }) => {
     const [showPassword, setShowPassword] = useState(false);
     return (
@@ -42,31 +43,40 @@ const Commanyup = ({
             ) : as === "select" ? (
                 <Select
                     options={[
+                        { value: " Select Course", label: "Select Course" },
                         { value: "React JS", label: "React JS" },
                         { value: "Node JS", label: "Node JS" },
                         { value: "Full Stack", label: "Full Stack" },
                     ]}
+                    value={[
+                        { value: " Select Course", label: "Select Course" },
+                        { value: "React JS", label: "React JS" },
+                        { value: "Node JS", label: "Node JS" },
+                        { value: "Full Stack", label: "Full Stack" },
+                    ].find((option) => option.value === value)}
+                    onChange={(selectedOption) =>
+                        setFieldValue(name, selectedOption?.value || "")
+                    }
                     placeholder="Select Course"
                     styles={{
                         control: (base, state) => ({
                             ...base,
-                            minHeight: 52,
+                            minHeight: 60,
                             borderRadius: 16,
+
+                            borderWidth: "1px",
+                            borderStyle: "solid",
                             borderColor: error ? "#ef4444" : "#cbd5e1",
-                            boxShadow: state.isFocused
-                                ? "0 0 0 4px rgba(99,102,241,0.15)"
-                                : "none",
+
+                            boxShadow: error
+                                ? "0 0 0 1px #ef4444"
+                                : state.isFocused
+                                    ? "0 0 0 4px rgba(99,102,241,0.15)"
+                                    : "none",
+
                             "&:hover": {
-                                borderColor: "#6366f1",
+                                borderColor: error ? "#ef4444" : "#cbd5e1",
                             },
-                        }),
-                        option: (base, state) => ({
-                            ...base,
-                            backgroundColor: state.isFocused
-                                ? "#e0e7ff"
-                                : "#fff",
-                            color: "#334155",
-                            cursor: "pointer",
                         }),
                     }}
                 />

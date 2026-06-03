@@ -110,18 +110,18 @@ const Validation = () => {
         setEditIndex(index);
     };
 
-  const handleDelete = (index) => {
-    const updatedUsers = users.filter(
-        (_, i) => i !== index
-    );
+    const handleDelete = (index) => {
+        const updatedUsers = users.filter(
+            (_, i) => i !== index
+        );
 
-    setUsers(updatedUsers);
+        setUsers(updatedUsers);
 
-    localStorage.setItem(
-        "users",
-        JSON.stringify(updatedUsers)
-    );
-};
+        localStorage.setItem(
+            "users",
+            JSON.stringify(updatedUsers)
+        );
+    };
 
 
 

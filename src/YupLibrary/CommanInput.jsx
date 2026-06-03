@@ -38,9 +38,7 @@ const CommonInput = ({
                         label: item,
                     }))}
                     value={
-                        options?.find(
-                            (item) => item === value
-                        )
+                        options?.find((item) => item === value)
                             ? {
                                 value: value,
                                 label: value,
@@ -56,8 +54,52 @@ const CommonInput = ({
                         })
                     }
                     placeholder="Select Course"
-                    className="react-select-container"
-                    classNamePrefix="react-select"
+                    styles={{
+                        control: (provided, state) => ({
+                            ...provided,
+                            minHeight: 52,
+                            height: 60,
+                            borderRadius: 16,
+
+                            borderWidth: "2px",
+                            borderStyle: "solid",
+                            borderColor: error ? "#ef4444" : "#e2e8f0",
+
+                            backgroundColor: error ? "#fef2f2" : "#fff",
+
+                            boxShadow: error
+                                ? "0 0 0 1px #ef4444"
+                                : state.isFocused
+                                    ? "0 0 0 4px rgba(99,102,241,0.1)"
+                                    : "none",
+
+                            "&:hover": {
+                                borderColor: error ? "#ef4444" : "#6366f1",
+                            },
+                        }),
+
+                        valueContainer: (provided) => ({
+                            ...provided,
+                            height: 52,
+                            padding: "0 16px",
+                        }),
+
+                        input: (provided) => ({
+                            ...provided,
+                            margin: 0,
+                            padding: 0,
+                        }),
+
+                        indicatorsContainer: (provided) => ({
+                            ...provided,
+                            height: 52,
+                        }),
+
+                        singleValue: (provided) => ({
+                            ...provided,
+                            color: "#334155",
+                        }),
+                    }}
                 />
             ) : (
                 type === "password" ? (

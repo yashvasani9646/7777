@@ -438,28 +438,13 @@ const Yup = () => {
                                     Course
                                 </label>
 
-
                                 <Commanyup
                                     as="select"
                                     name="course"
+                                    value={values.course}
+                                    setFieldValue={setFieldValue}
                                     error={touched.course && errors.course}
-                                >
-                                    <option value="">
-                                        Select Course
-                                    </option>
-
-                                    <option value="React JS">
-                                        React JS
-                                    </option>
-
-                                    <option value="Node JS">
-                                        Node JS
-                                    </option>
-
-                                    <option value="Full Stack">
-                                        Full Stack
-                                    </option>
-                                </Commanyup>
+                                />
                             </div>
 
                             {/* Date Picker */}
