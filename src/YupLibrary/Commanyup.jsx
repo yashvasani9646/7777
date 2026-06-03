@@ -26,6 +26,7 @@ const Commanyup = ({
                         name={name}
                         placeholder={placeholder}
                         value={value}
+                        maxLength={8}
                         className={`w-full bg-white px-4 py-3 pr-12 rounded-2xl text-slate-700 shadow-sm outline-none transition-all duration-300 ${error
                             ? "border-2 border-red-500 focus:border-red-500 focus:ring-4 focus:ring-red-100"
                             : "border border-slate-300 focus:border-slate-900 focus:ring-4 focus:ring-slate-200 hover:border-slate-400"

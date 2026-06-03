@@ -209,6 +209,8 @@ const Yup = () => {
                         errors,
                         touched,
                         values,
+                        setFieldTouched,
+
                     }) => (
                         <Form className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="md:col-span-2">
@@ -487,7 +489,7 @@ const Yup = () => {
 
                             {/* File Upload */}
                             <div
-                                className={`md:col-span-2 border-2 border-dashed rounded-3xl p-10 text-center transition-all ${touched.resume && errors.resume
+                                className={`md:col-span-2 border-2 border-dashed rounded-3xl p-10 text-center transition-all ${errors.resume && !values.resume
                                     ? "border-red-500 bg-red-50"
                                     : "border-slate-300 bg-slate-50 hover:border-slate-400"
                                     }`}
@@ -508,7 +510,8 @@ const Yup = () => {
                                     onChange={(e) => {
                                         const file = e.target.files[0];
 
-                                        setFieldValue("resume", file);
+                                        setFieldValue("resume", file, true);
+                                        setFieldTouched("resume", true, true);
 
                                         if (file) {
                                             setFieldValue(
@@ -528,11 +531,11 @@ const Yup = () => {
                                         />
                                     </div>
                                 )}
-                                <ErrorMessage
-                                    name="resume"
-                                    component="p"
-                                    className="text-red-500 text-sm mt-2"
-                                />
+                                {errors.resume && !values.resume && (
+                                    <p className="text-red-500 text-sm mt-2">
+                                        {errors.resume}
+                                    </p>
+                                )}
                             </div>
                             <button
                                 type="submit"

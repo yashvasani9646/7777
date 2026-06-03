@@ -646,17 +646,22 @@ const Validation = () => {
 
                         <DatePicker
                             selected={formData.dob}
-                            onChange={(date) =>
+                            onChange={(date) => {
                                 setFormData({
                                     ...formData,
                                     dob: date,
-                                })
-                            }
+                                });
+
+                                setErrors((prev) => ({
+                                    ...prev,
+                                    dob: "",
+                                }));
+                            }}
                             dateFormat="dd/MM/yyyy"
                             placeholderText="Select Date of Birth"
                             className={`w-full bg-white px-4 py-3 rounded-2xl text-slate-700 shadow-sm outline-none transition-all duration-300 ${errors.dob
-                                ? "border-2 border-red-500"
-                                : "border border-slate-300"
+                                    ? "border-2 border-red-500"
+                                    : "border border-slate-300"
                                 }`}
                         />
                         {errors.dob && (
