@@ -3,8 +3,16 @@ import CommonInput from "./CommanInput";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import toast, { Toaster } from "react-hot-toast";
+import { useDispatch } from "react-redux";
+
+import {
+    addUser,
+    updateUser,
+    deleteUser,
+} from "../YupLibrary/UserSlice";
 
 const Validation = () => {
+    const dispatch = useDispatch();
 
     const [formData, setFormData] = useState({
         firstName: "",
@@ -271,13 +279,20 @@ const Validation = () => {
             toast.success('Successfully toasted!')
 
 
-
             if (editIndex !== null) {
+                dispatch(
+                    updateUser({
+                        index: editIndex,
+                        user: formData,
+                    })
+                );
+
                 const updatedUsers = [...users];
 
                 updatedUsers[editIndex] = {
                     ...updatedUsers[editIndex],
                     ...formData,
+
                 };
 
                 setUsers(updatedUsers);
@@ -288,6 +303,7 @@ const Validation = () => {
                 );
             } else {
 
+                dispatch(addUser(formData));
                 const updatedUsers = [
                     ...users,
                     formData,
@@ -331,10 +347,12 @@ const Validation = () => {
         setShowDeleteModal(true);
     };
 
+
     const confirmDelete = () => {
         const updatedUsers = users.filter(
             (_, i) => i !== deleteIndex
         );
+        dispatch(deleteUser(deleteIndex));
 
         setUsers(updatedUsers);
 
@@ -660,8 +678,8 @@ const Validation = () => {
                             dateFormat="dd/MM/yyyy"
                             placeholderText="Select Date of Birth"
                             className={`w-full bg-white px-4 py-3 rounded-2xl text-slate-700 shadow-sm outline-none transition-all duration-300 ${errors.dob
-                                    ? "border-2 border-red-500"
-                                    : "border border-slate-300"
+                                ? "border-2 border-red-500"
+                                : "border border-slate-300"
                                 }`}
                         />
                         {errors.dob && (
